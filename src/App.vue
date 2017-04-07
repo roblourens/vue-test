@@ -1,7 +1,7 @@
 <template>
 
   <div id="demo">
-    <h1>Latest Vue.js Issues</h1>
+    <h1>Latest VS Code Issues</h1>
     <template v-for="branch in branches">
       <input type="radio"
              :id="branch"
@@ -62,7 +62,11 @@ export default {
       var self = this
       xhr.open('GET', apiURL + self.currentBranch)
       xhr.onload = function () {
-        self.issues = JSON.parse(xhr.responseText)
+        const issues = JSON.parse(xhr.responseText)
+        issues.forEach(issue => {
+          issue.is_insiders = issue.body.match(/VSCode Version:.*Insiders/);
+        })
+        self.issues = issues
         console.log(self.issues[0].html_url)
       }
       xhr.send()
