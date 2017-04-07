@@ -1,7 +1,7 @@
 <template>
 
   <div id="demo">
-    <h1>Latest Vue.js Commits</h1>
+    <h1>Latest Vue.js Issues</h1>
     <template v-for="branch in branches">
       <input type="radio"
              :id="branch"
@@ -12,8 +12,8 @@
     </template>
     <p>vuejs/vue@{{ currentBranch }}</p>
     <ul>
-      <li v-for="record in commits">
-        <commit v-bind:record="record"></commit>
+      <li v-for="record in issues">
+        <issue v-bind:record="record"></issue>
       </li>
     </ul>
   </div>
@@ -22,17 +22,20 @@
 
 <script>
 import Commit from './Commit.vue'
-var apiURL = 'https://api.github.com/repos/microsoft/vscode/commits?per_page=3&sha='
+import Issue from './Issue.vue'
+var apiURL = 'https://api.github.com/repos/microsoft/vscode/issues?per_page=20'
 export default {
 
   components: {
-    commit: Commit
+    commit: Commit,
+    issue: Issue
   },
 
   data: () => ({
     branches: ['master', 'dev'],
     currentBranch: 'master',
-    commits: null
+    commits: null,
+    issues: null
   }),
 
   created: function () {
@@ -59,8 +62,8 @@ export default {
       var self = this
       xhr.open('GET', apiURL + self.currentBranch)
       xhr.onload = function () {
-        self.commits = JSON.parse(xhr.responseText)
-        console.log(self.commits[0].html_url)
+        self.issues = JSON.parse(xhr.responseText)
+        console.log(self.issues[0].html_url)
       }
       xhr.send()
     }
