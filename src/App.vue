@@ -11,8 +11,9 @@
       <label :for="branch">{{ branch }}</label>
     </template>
     <p>vuejs/vue@{{ currentBranch }}</p>
+    <input type="text" name="filterText" v-model="filterText">
     <ul>
-      <li v-for="record in issues">
+      <li v-for="record in filteredIssues">
         <issue v-bind:record="record"></issue>
       </li>
     </ul>
@@ -34,8 +35,10 @@ export default {
   data: () => ({
     branches: ['master', 'dev'],
     currentBranch: 'master',
+    filterText: '',
     commits: null,
-    issues: null
+    issues: null,
+    filteredIssues: null
   }),
 
   created: function () {
@@ -43,7 +46,9 @@ export default {
   },
 
   watch: {
-    currentBranch: 'fetchData'
+    currentBranch: 'fetchData',
+    issues: 'filterIssues',
+    filterText: 'filterIssues'
   },
 
   filters: {
@@ -70,6 +75,12 @@ export default {
         console.log(self.issues[0].html_url)
       }
       xhr.send()
+    },
+    filterIssues: function () {
+      this.filteredIssues = this.issues.filter(issue =>
+        issue.title.toLowerCase().indexOf(this.filterText.toLowerCase()) !== -1 ||
+        issue.body.toLowerCase().indexOf(this.filterText.toLowerCase()) !== -1
+      );
     }
   }
 }
