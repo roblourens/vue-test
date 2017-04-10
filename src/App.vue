@@ -2,15 +2,7 @@
 
   <div id="demo">
     <h1>Latest VS Code Issues</h1>
-    <template v-for="branch in branches">
-      <input type="radio"
-             :id="branch"
-             :value="branch"
-             name="branch"
-             v-model="currentBranch">
-      <label :for="branch">{{ branch }}</label>
-    </template>
-    <p>vuejs/vue@{{ currentBranch }}</p>
+    <span>Search:</span>
     <input type="text" name="filterText" v-model="filterText">
     <ul>
       <li v-for="record in filteredIssues">
