@@ -1,0 +1,55 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "npm",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "devserver",
+            "args": [
+                "run",
+                "dev"
+            ],
+            "isBuildCommand": true,
+            "isBackground": true
+            // "problemMatcher": {
+            //     "owner": "webpack",
+            //     "severity": "error",
+            //     "fileLocation": "absolute",
+            //     "pattern": [
+            //         {
+            //             "regexp": "^\\s*error\\s+\\S+\\s+(.*)$",
+            //             "message": 1
+            //         },
+            //         {
+            //             "regexp": "^(.*):(\\d+):(\\d+)$",
+            //             "file": 1,
+            //             "line": 2,
+            //             "column": 3
+            //         }
+            //     ],
+            //     "watching": {
+            //         "beginsPattern": "^ERROR in [^~]*$",
+            //         "endsPattern": "^ERROR in .*~.*$"
+            //     }
+            // }
+        },
+        {
+            "taskName": "build",
+            "args": [
+                "run",
+                "build"
+            ]
+        },
+        {
+            "taskName": "test",
+            "args": [
+                "run",
+                "test"
+            ]
+        }
+    ]
+}

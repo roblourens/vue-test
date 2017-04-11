@@ -16,7 +16,7 @@
 <script>
 import Commit from './Commit.vue'
 import Issue from './Issue.vue'
-var apiURL = 'https://api.github.com/repos/microsoft/vscode/issues?per_page=20'
+var apiURL = 'https://api.github.com/repos/microsoft/vscode/issues?per_page=100'
 export default {
 
   components: {
@@ -57,11 +57,11 @@ export default {
     fetchData: function () {
       var xhr = new XMLHttpRequest()
       var self = this
-      xhr.open('GET', apiURL + self.currentBranch)
+      xhr.open('GET', apiURL)
       xhr.onload = function () {
         const issues = JSON.parse(xhr.responseText)
         issues.forEach(issue => {
-          issue.is_insiders = issue.body.match(/VSCode Version:.*Insiders/);
+          issue.is_insiders = issue.body.match(/VSCode Version:.*Insiders/i);
         })
         self.issues = issues
         console.log(self.issues[0].html_url)
